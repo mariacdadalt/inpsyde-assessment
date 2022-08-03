@@ -6,9 +6,8 @@
 	"prefer-stable": true,
 	"repositories": [
 		{
-			"name": "mariacdadalt/plugin-core",
-			"type": "vcs",
-			"url": "https://github.com/mariacdadalt/plugin-core"
+			"type": "composer",
+			"url": "https://mariacdadalt.github.io/composer-satis/"
 		},
 		{
 			"type": "composer",
@@ -17,6 +16,11 @@
 	],
 	"require": {
 		"mariacdadalt/plugin-core": "dev-main"
+	},
+	"autoload": {
+		"psr-4": {
+			"Plugin\\Assessment\\": "src"
+		}
 	},
 	"extra": {}
 }
