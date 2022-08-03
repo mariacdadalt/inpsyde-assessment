@@ -1,0 +1,22 @@
+{
+	"name": "mariacdadalt/inpsyde-assessment",
+	"description": "Maria C. Dadalt's Inpyside Assessment",
+	"type": "wordpress-plugin",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"repositories": [
+		{
+			"name": "mariacdadalt/plugin-core",
+			"type": "vcs",
+			"url": "https://github.com/mariacdadalt/plugin-core"
+		},
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
+	"require": {
+		"mariacdadalt/plugin-core": "dev-main"
+	},
+	"extra": {}
+}
