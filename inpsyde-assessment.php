@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Maria C. Dadalt's Inpsyde Assessment
  * Plugin URI:
@@ -9,26 +10,11 @@
  * License: MIT
  */
 
-if ( ! defined( 'PLUGIN_ASSESSMENT_DIR' ) ) {
-    define( 'PLUGIN_ASSESSMENT_DIR', WP_CONTENT_DIR . '/plugins/inpsyde-assessment/' );
-}
+declare(strict_types=1);
 
-if ( ! defined( 'PLUGIN_ASSESSMENT_LANG' ) ) {
-    define( 'PLUGIN_ASSESSMENT_LANG', 'inpsyde-assessment' );
-}
-
-/**
- * Autoload utility functions
- */
-function load_assessment_functions() {
-    foreach ( glob( PLUGIN_ASSESSMENT_DIR . '/src/Functions/*.php' ) as $file ) {
-        require_once $file;
-    }
-}
-load_assessment_functions();
-
+use Plugin\Assessment\Plugin;
 
 /**
  * Register the plugin instance with the Core Plugin.
  */
-core()->register_plugin( new \Plugin\Assessment\Plugin() );
+core()->registerPlugin(new Plugin());
