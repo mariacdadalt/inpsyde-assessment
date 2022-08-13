@@ -75,12 +75,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mariacdadalt/plugin-core.git",
-                "reference": "ee1b87bea163b67c9622e2cd2a167c69fd53fe16"
+                "reference": "942c5d32e8be736feb182aefd96f89fad9dae91f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mariacdadalt/plugin-core/zipball/ee1b87bea163b67c9622e2cd2a167c69fd53fe16",
-                "reference": "ee1b87bea163b67c9622e2cd2a167c69fd53fe16",
+                "url": "https://api.github.com/repos/mariacdadalt/plugin-core/zipball/942c5d32e8be736feb182aefd96f89fad9dae91f",
+                "reference": "942c5d32e8be736feb182aefd96f89fad9dae91f",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "source": "https://github.com/mariacdadalt/plugin-core/tree/main",
                 "issues": "https://github.com/mariacdadalt/plugin-core/issues"
             },
-            "time": "2022-08-08T14:52:12+00:00"
+            "time": "2022-08-13T22:19:08+00:00"
         },
         {
             "name": "mustache/mustache",

@@ -7,7 +7,7 @@ namespace Plugin\Assessment\Services\UserTable;
 use Plugin\Core\Abstractions\AbstractSubscriber;
 
 /**
- * The classes that extends this will hook with WordPress.
+ * This class connects to WordPress.
  */
 class UserTableSubscriber extends AbstractSubscriber
 {
