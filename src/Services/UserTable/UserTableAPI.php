@@ -19,7 +19,15 @@ class UserTableAPI extends AbstractAPI
 
     protected function formatBody(string $body): array
     {
-        core()->debug($body);
-        return [];
+        $list = json_decode($body, true);
+        $users = [];
+        foreach ($list as $item) {
+            $users[] = [
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'username' => $item['username'],
+            ];
+        }
+        return $users;
     }
 }

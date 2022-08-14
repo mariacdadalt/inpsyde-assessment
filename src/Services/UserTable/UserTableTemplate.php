@@ -8,6 +8,7 @@ global $controller;
 
 wp_head();
 
-echo esc_html($controller->render());
+echo $controller->render(); //phpcs:ignore
+
 
 wp_footer();
