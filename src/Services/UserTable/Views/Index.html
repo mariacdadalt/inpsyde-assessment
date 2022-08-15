@@ -1,7 +1,8 @@
 <h1>User Table</h1>
+<div class="inpsyde-messages__container"></div>
 <table>
 	{{# users }}
-	<tr>
+	<tr class="inpsyde-open-modal" data-modal="user-detail" data-id="{{ id }}">
 		<td>{{ id }}</td>
 		<td>{{ name }}</td>
 		<td>{{ username }}</td>
