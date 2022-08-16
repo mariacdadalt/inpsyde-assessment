@@ -18,6 +18,8 @@ class UserDetailController extends AssessmentController
 
     public function args(array $args = [])
     {
+        $this->api->changeArgs($args);
+
         $args = [
             'user' => $this->api->requestGET($args),
         ];

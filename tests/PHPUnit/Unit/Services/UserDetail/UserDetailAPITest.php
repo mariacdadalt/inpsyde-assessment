@@ -96,7 +96,8 @@ class UserDetailAPITest extends AbstractUnitTestcase
 
         // Act
         $class = new UserDetailAPI($url);
-        $result = $this->callMethod($class, 'parseUrl', [ $args ]);
+        $class->changeArgs($args);
+        $result = $this->callMethod($class, 'parseUrl', []);
 
         // Assert
         $this->assertEquals('the-url.com/users/1', $result);
