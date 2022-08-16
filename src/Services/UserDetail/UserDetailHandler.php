@@ -22,7 +22,7 @@ class UserDetailHandler extends AbstractHandler
     {
         if (
             ! isset($_POST['nonce']) ||
-            ! wp_verify_nonce($_POST['nonce'], UserDetailSubscriber::NONCE)
+            ! wp_verify_nonce($_POST['nonce'], UserDetailSubscriber::NONCE) //phpcs:ignore
         ) {
             wp_send_json_error($this->message->render([
                 'type' => 'alert',

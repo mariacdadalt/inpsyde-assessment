@@ -42,7 +42,7 @@ class UserDetailSubscriber extends AbstractSubscriber
         ]);
     }
 
-    public function ajaxValues($values): array
+    public function ajaxValues(array $values): array
     {
         if (!get_query_var('user-table')) {
             return $values;

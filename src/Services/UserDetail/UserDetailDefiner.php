@@ -15,7 +15,10 @@ class UserDetailDefiner extends AbstractDefiner
     {
 
         return [
-            UserDetailAPI::class => \DI\autowire()->constructorParameter('url', 'https://jsonplaceholder.typicode.com/users'),
+            UserDetailAPI::class => \DI\autowire()->constructorParameter(
+                'url',
+                'https://jsonplaceholder.typicode.com/users'
+            ),
         ];
     }
 }

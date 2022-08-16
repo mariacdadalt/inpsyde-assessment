@@ -15,7 +15,10 @@ class UserTableDefiner extends AbstractDefiner
     {
 
         return [
-            UserTableAPI::class => \DI\autowire()->constructorParameter('url', 'https://jsonplaceholder.typicode.com/users'),
+            UserTableAPI::class => \DI\autowire()->constructorParameter(
+                'url',
+                'https://jsonplaceholder.typicode.com/users'
+            ),
         ];
     }
 }
