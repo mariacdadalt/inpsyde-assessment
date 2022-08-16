@@ -21,7 +21,7 @@ jQuery(document).ready(function ($) {
 				return;
 			}
 
-			$('.inpsyde-modal__body').html(data);
+			$('.inpsyde-modal__body').html(response.data);
 		});
 	});
 });
