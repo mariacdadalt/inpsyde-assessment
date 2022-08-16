@@ -23,12 +23,17 @@ class UserDetailAPI extends AbstractAPI
         return json_decode($body, true);
     }
 
-    protected function parseUrl(array $args): string
+    protected function parseUrl(): string
     {
-        if (!isset($args['id'])) {
+        if (!isset($this->args['id'])) {
             return $this->url;
         }
 
-        return $this->url . '/' . $args['id'];
+        return $this->url . '/' . $this->args['id'];
+    }
+
+    protected function cacheKey(): string
+    {
+        return 'user-detail-' . $this->args['id'];
     }
 }

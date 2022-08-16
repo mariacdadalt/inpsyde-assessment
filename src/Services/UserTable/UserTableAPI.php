@@ -30,4 +30,10 @@ class UserTableAPI extends AbstractAPI
         }
         return $users;
     }
+
+    protected function cacheKey(): string
+    {
+
+        return 'user-table';
+    }
 }
