@@ -7,12 +7,15 @@ namespace Plugin\Assessment\Tests\Unit\Services\UserDetail;
 use Plugin\Assessment\Tests\Unit\AbstractUnitTestcase;
 use Brain\Monkey\Filters;
 use Brain\Monkey\Actions;
+use Brain\Monkey\Expectation\Exception\Exception;
 use Brain\Monkey\Functions;
 use DI\FactoryInterface;
+use Plugin\Assessment\Services\UserDetail\UserDetailController;
 use Plugin\Assessment\Services\UserDetail\UserDetailSubscriber;
 use Plugin\Core\Core;
 use Plugin\Core\Services\Modal\ModalController;
 use Plugin\Core\Services\Loader\LoaderController;
+use Plugin\Core\Services\Message\MessageController;
 
 class UserDetailSubscriberTest extends AbstractUnitTestcase
 {
@@ -136,5 +139,167 @@ class UserDetailSubscriberTest extends AbstractUnitTestcase
         // Assert
         $this->assertArrayNotHasKey('nonce', $result);
         $this->assertArrayNotHasKey('action', $result);
+    }
+
+    /**
+     * Tests that the endpoint function returns an error when no nonce is setup
+     */
+    public function testEndpointReturnsErrorNonceNotSet()
+    {
+        // Assert
+        $expected = file_get_contents(__DIR__ . '/_data/Message01.html');
+        $this->expectOutputString($expected);
+
+        // Arrange
+        $_POST['nonce'] = null;
+        Functions\when('wp_send_json_error')->echoArg();
+
+        $message = $this->createStub(MessageController::class);
+        $message->expects($this->once())
+                    ->method('render')
+                    ->willReturn($expected);
+
+        $container = $this->createStub(FactoryInterface::class);
+        $container->expects($this->once())
+                        ->method('make')
+                        ->willReturn($message);
+
+        // Act
+        $class = new UserDetailSubscriber($container);
+        $class->endpoint();
+    }
+
+    /**
+     * Tests that the endpoint function returns an error when the nonce is not set
+     * FAILURE ROUTE
+     */
+    public function testEndpointReturnsErrorIfNonceNotSet()
+    {
+        // Assert
+        $expected = file_get_contents(__DIR__ . '/_data/Message01.html');
+        $this->expectOutputString($expected);
+
+        // Arrange
+        $_POST['nonce'] = 'test-nonce';
+        Functions\when('wp_verify_nonce')->justReturn(false);
+        Functions\when('wp_send_json_error')->echoArg();
+
+        $message = $this->createStub(MessageController::class);
+        $message->expects($this->once())
+                    ->method('render')
+                    ->willReturn($expected);
+
+        $container = $this->createStub(FactoryInterface::class);
+        $container->expects($this->once())
+                        ->method('make')
+                        ->willReturn($message);
+
+        // Act
+        $class = new UserDetailSubscriber($container);
+        $class->endpoint();
+    }
+
+    /**
+     * Tests that the endpoint function returns an error when the nonce is invalid
+     * FAILURE ROUTE
+     */
+    public function testEndpointReturnsSecurityError()
+    {
+        // Assert
+        $expected = file_get_contents(__DIR__ . '/_data/Message01.html');
+        $this->expectOutputString($expected);
+
+        // Arrange
+        $_POST['nonce'] = 'test-nonce';
+        Functions\when('wp_verify_nonce')->justReturn(false);
+        Functions\when('wp_send_json_error')->echoArg();
+
+        $message = $this->createStub(MessageController::class);
+        $message->expects($this->once())
+                    ->method('render')
+                    ->willReturn($expected);
+
+        $container = $this->createStub(FactoryInterface::class);
+        $container->expects($this->once())
+                        ->method('make')
+                        ->willReturn($message);
+
+        // Act
+        $class = new UserDetailSubscriber($container);
+        $class->endpoint();
+    }
+
+    /**
+     * Tests that the endpoint function returns an error when the id is not set
+     */
+    public function testEndpointReturnsErrorIfIDNotSet()
+    {
+        // Assert
+        $expected = file_get_contents(__DIR__ . '/_data/Message02.html');
+        $this->expectOutputString($expected);
+
+        // Arrange
+        $_POST['id'] = null;
+        $_POST['nonce'] = 'test-nonce';
+        Functions\when('wp_verify_nonce')->justReturn(true);
+        Functions\when('wp_send_json_error')->echoArg();
+
+        $message = $this->createStub(MessageController::class);
+        $message->expects($this->once())
+                    ->method('render')
+                    ->willReturn($expected);
+
+        $container = $this->createStub(FactoryInterface::class);
+        $container->expects($this->once())
+                        ->method('make')
+                        ->willReturn($message);
+
+        // Act
+        $class = new UserDetailSubscriber($container);
+        $class->endpoint();
+    }
+
+    /**
+     * Tests that the endpoint function returns an error when the controller throws an exception
+     */
+    public function testEndpointReturnsErrorIfControllerThrowsException()
+    {
+        // Assert
+        $expected = file_get_contents(__DIR__ . '/_data/Message03.html');
+        $this->expectOutputString($expected);
+
+        // Arrange
+        $_POST['id'] = 2;
+        $_POST['nonce'] = 'test-nonce';
+        Functions\when('wp_verify_nonce')->justReturn(true);
+        Functions\when('wp_send_json_error')->echoArg();
+        Functions\when('wp_send_json_success')->echoArg();
+        Functions\when('sanitize_key')->justReturn(2);
+
+        $message = $this->createStub(MessageController::class);
+        $message->expects($this->once())
+                ->method('render')
+                ->willReturn($expected);
+
+        $controller = $this->createStub(UserDetailController::class);
+        $controller->expects($this->once())
+                ->method('render')
+                ->willThrowException(new Exception());
+
+        $container = $this->createMock(FactoryInterface::class);
+        $container->expects($this->any())
+                    ->method('make')
+                    ->withConsecutive(
+                        [ UserDetailController::class ],
+                        [ MessageController::class ]
+                    )
+                    ->willReturnOnConsecutiveCalls(
+                        $controller,
+                        $message
+                    );
+
+        // Act
+        $class = new UserDetailSubscriber($container);
+        $class->endpoint();
     }
 }

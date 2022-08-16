@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Plugin\Assessment\Services\UserDetail;
 
+use Exception;
 use Plugin\Core\Abstractions\AbstractSubscriber;
 use Plugin\Core\Services\Modal\ModalController;
 use Plugin\Core\Services\Loader\LoaderController;
 use Plugin\Core\Core;
+use Plugin\Core\Services\Message\MessageController;
 
 /**
  * This class connects to WordPress.
@@ -36,10 +38,10 @@ class UserDetailSubscriber extends AbstractSubscriber
         $modal = $this->container->make(ModalController::class);
         $loader = $this->container->make(LoaderController::class);
         echo $modal->render([ //phpcs:ignore
-            'modalID' => 'user-detail',
-            'title' => 'User Details',
-            'dismissible' => true,
-            'body' => $loader->render(), //phpcs:ignore
+        'modalID' => 'user-detail',
+        'title' => 'User Details',
+        'dismissible' => true,
+        'body' => $loader->render(), //phpcs:ignore
         ]);
     }
 
@@ -54,7 +56,37 @@ class UserDetailSubscriber extends AbstractSubscriber
         return $values;
     }
 
-    public function endpoint()
+    public function endpoint() //phpcs:ignore
     {
+        if (!isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], $this::NONCE)) {
+            $controller = $this->container->make(MessageController::class);
+            return wp_send_json_error($controller->render([
+                'type' => 'alert',
+                'message' => 'There was an error in your request',
+            ]));
+        }
+
+        if (! isset($_POST['id'])) {
+            $controller = $this->container->make(MessageController::class);
+            return wp_send_json_error($controller->render([
+                'type' => 'alert',
+                'message' => 'The id provided is invalid',
+            ]));
+        }
+
+        $id = sanitize_key($_POST['id']);
+
+        try {
+            $controller = $this->container->make(UserDetailController::class);
+            return wp_send_json_success($controller->render([
+                'id' => $id,
+            ]));
+        } catch (Exception $exception) {
+            $controller = $this->container->make(MessageController::class);
+            return wp_send_json_error($controller->render([
+                'type' => 'alert',
+                'message' => 'There was an error retriving the user information',
+            ]));
+        }
     }
 }
