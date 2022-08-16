@@ -28,6 +28,8 @@ After activating the plugin, ensure that you flush your permalinks in `Settings 
 
 go to `user-table` endpoint in your root domain. A simple table with users should appear.
 
+to run unit tests, you need to run `composer install` inside the plugin folder.
+
 ## Implementation choices
 - Instead of using a link tag (`<a>`) to open the modal, I have decided to use Javascript to open the modal when the whole `<tr>`tag is clicked. I opted to do it this way to keep the result consistent across the whole line.
 - For the caching approach, I decided to go with transients from WordPress, since it's the common approach in the platform. The main implementation is done inside the `plugin-core` in the [AbstractAPI](https://github.com/mariacdadalt/plugin-core/blob/main/src/Abstractions/AbstractAPI.php) file.
