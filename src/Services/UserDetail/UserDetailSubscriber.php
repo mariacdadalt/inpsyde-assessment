@@ -63,6 +63,7 @@ class UserDetailSubscriber extends AbstractSubscriber
             return wp_send_json_error($controller->render([
                 'type' => 'alert',
                 'message' => 'There was an error in your request',
+                'dismissible' => true,
             ]));
         }
 
@@ -71,6 +72,7 @@ class UserDetailSubscriber extends AbstractSubscriber
             return wp_send_json_error($controller->render([
                 'type' => 'alert',
                 'message' => 'The id provided is invalid',
+                'dismissible' => true,
             ]));
         }
 
@@ -86,6 +88,7 @@ class UserDetailSubscriber extends AbstractSubscriber
             return wp_send_json_error($controller->render([
                 'type' => 'alert',
                 'message' => 'There was an error retriving the user information',
+                'dismissible' => true,
             ]));
         }
     }
