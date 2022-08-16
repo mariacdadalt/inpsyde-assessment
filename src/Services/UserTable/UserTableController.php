@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Plugin\Assessment\Services\UserTable;
 
-use Plugin\Core\Abstractions\AbstractController;
-use Plugin\Core\Abstractions\AbstractRenderer;
+use Plugin\Assessment\Abstractions\AssessmentController;
 
-class UserTableController extends AbstractController
+class UserTableController extends AssessmentController
 {
     protected UserTableAPI $api;
 
-    public function __construct(AbstractRenderer $renderer, UserTableAPI $api)
+    public function __construct(UserTableAPI $api)
     {
         $this->api = $api;
-        parent::__construct($renderer);
+        parent::__construct();
     }
 
     public function args(array $args = [])

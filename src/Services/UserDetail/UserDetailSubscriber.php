@@ -17,9 +17,7 @@ class UserDetailSubscriber extends AbstractSubscriber
 {
     public const ENDPOINT = 'user-detail';
     public const NONCE = 'user-detail-nonce';
-    /**
-     * Subscribes the methods to the relevant hook.
-     */
+
     public function subscribe()
     {
         add_action('wp_footer', [ $this, 'renderModal']);

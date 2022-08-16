@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Plugin\Assessment\Services\UserDetail;
 
-use Plugin\Core\Abstractions\AbstractController;
-use Plugin\Core\Abstractions\AbstractRenderer;
+use Plugin\Assessment\Abstractions\AssessmentController;
 
-class UserDetailController extends AbstractController
+class UserDetailController extends AssessmentController
 {
     protected UserDetailAPI $api;
 
-    public function __construct(AbstractRenderer $renderer, UserDetailAPI $api)
+    public function __construct(UserDetailAPI $api)
     {
         $this->api = $api;
-        parent::__construct($renderer);
+        parent::__construct();
     }
 
     public function args(array $args = [])

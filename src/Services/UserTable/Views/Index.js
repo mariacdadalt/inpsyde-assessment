@@ -10,7 +10,8 @@ jQuery(document).ready(function ($) {
 
 		var data = {
 			action: pluginObj.action,
-			nonce: pluginObj.nonce
+			nonce: pluginObj.nonce,
+			id: $(this).data('id')
 		};
 
 		var ajax_post = $.post(pluginObj.ajaxUrl, data, function (response) {

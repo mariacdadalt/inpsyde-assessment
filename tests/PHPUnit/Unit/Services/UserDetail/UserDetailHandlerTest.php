@@ -101,7 +101,6 @@ class UserDetailHandlerTest extends AbstractUnitTestcase
         $this->expectOutputString($expected);
 
         // Arrange
-        $_POST['id'] = null;
         $_POST['nonce'] = 'test-nonce';
         Functions\when('wp_verify_nonce')->justReturn(true);
         Functions\when('wp_send_json_error')->echoArg();

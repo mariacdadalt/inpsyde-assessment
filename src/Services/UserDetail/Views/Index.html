@@ -1,1 +1,30 @@
-HELLO!
+{{# user }}
+<table>
+	<tr>
+		<td><span>ID</span>{{ user.id }}</td>
+		<td><span>Name</span>{{ user.name }}</td>
+		<td><span>Username</span>{{ user.username }}</td>
+	</tr>
+	<tr>
+		<td colspan="2"><span>Email</span>{{ user.email }}</td>
+		<td><span>Phone</span>{{ user.phone }}</td>
+	</tr>
+	<tr class="divider">
+		<td colspan="3"><span>Address</span></td>
+	</tr>
+	<tr>
+		<td colspan="2"><span>Street</span>{{ user.address.street }}</td>
+		<td><span>Suite</span>{{ user.address.suite }}</td>
+	</tr>
+	<tr class="divider">
+		<td colspan="3"><span>Company</span></td>
+	</tr>
+	<tr>
+		<td colspan="2"><span>Name</span>{{ user.company.name }}</td>
+		<td><span>BS</span>{{ user.company.bs }}</td>
+	</tr>
+	<tr>
+		<td colspan="3"><span>Catch Phrase</span>{{ user.company.catchPhrase }}</td>
+	</tr>
+</table>
+{{/ user }}

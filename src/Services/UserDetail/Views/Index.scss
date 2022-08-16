@@ -1,0 +1,35 @@
+#user-detail {
+	table {
+		width: 100%;
+
+		td {
+			position: relative;
+			padding: 0.3em;
+			padding-top: 0.6em;
+		}
+
+		.divider {
+			background-color: gray;
+
+			td {
+				padding-top: 0.3em;
+			}
+
+			span {
+				color: white;
+				position: relative;
+				text-align: center;
+				display: block;
+			}
+		}
+	}
+
+	span {
+		position: absolute;
+		text-transform: uppercase;
+		color: gray;
+		font-size: xx-small;
+		top: 0;
+		left: 0;
+	}
+}

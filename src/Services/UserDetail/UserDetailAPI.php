@@ -25,6 +25,10 @@ class UserDetailAPI extends AbstractAPI
 
     protected function parseUrl(array $args): string
     {
+        if (!isset($args['id'])) {
+            return $this->url;
+        }
+
         return $this->url . '/' . $args['id'];
     }
 }
